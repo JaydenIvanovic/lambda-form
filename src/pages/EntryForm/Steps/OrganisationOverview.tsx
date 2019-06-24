@@ -25,7 +25,27 @@ export const OrganisationOverview = ({
     <FormField variation="column">
       <FormLabel htmlFor={inputs.sector!.id}>Sector</FormLabel>
       <Select required {...inputs.sector}>
-        <MenuItem value="test">test</MenuItem>
+        {[
+          ["animal-welfare", "Animal welfare"],
+          ["arts-and-culture", "Arts and Culture"],
+          ["civic-services", "Civic services"],
+          ["environmental-advocacy", "Environmental advocacy"],
+          ["education", "Education"],
+          [
+            "international-relations-and-development",
+            "International relations and development"
+          ],
+          ["health-services", "Health services"],
+          ["religion", "Religion"],
+          ["social-and-legal", "Social and legal services"],
+          ["other", "Other"]
+        ].map(optionPair => {
+          return (
+            <MenuItem key={optionPair[0]} value={optionPair[0]}>
+              {optionPair[1]}
+            </MenuItem>
+          );
+        })}
       </Select>
     </FormField>
     <FormField variation="column">

@@ -26,7 +26,17 @@ export const OrganisationDetails = ({
     <FormField variation="column">
       <FormLabel htmlFor={inputs.localisation!.id}>Localisation</FormLabel>
       <Select {...inputs.localisation}>
-        <MenuItem value="test">test</MenuItem>
+        {[
+          ["local-or-regional", "Local/Regional"],
+          ["national", "National"],
+          ["international", "International"]
+        ].map(optionPair => {
+          return (
+            <MenuItem key={optionPair[0]} value={optionPair[0]}>
+              {optionPair[1]}
+            </MenuItem>
+          );
+        })}
       </Select>
     </FormField>
     <FormField variation="row">
