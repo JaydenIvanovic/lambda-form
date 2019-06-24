@@ -91,35 +91,35 @@ function EntryForm({ history }: RouterProps) {
       });
   }
 
-  const steps = [
-    ({ style }: any) => <OrganisationOverview style={style} inputs={inputs} />,
-    ({ style }: any) => <OrganisationDetails style={style} inputs={inputs} />,
-    ({ style }: any) => <OrganisationMedia style={style} inputs={inputs} />,
-    ({ style }: any) => <OrganisationAddress style={style} inputs={inputs} />,
-    ({ style }: any) => <ContactPerson style={style} inputs={inputs} />,
-    ({ style }: any) => <WhatYouNeed style={style} inputs={inputs} />,
-    ({ style }: any) => (
+  function formSteps(style: any) {
+    return [
+      <OrganisationOverview style={style} inputs={inputs} />,
+      <OrganisationDetails style={style} inputs={inputs} />,
+      <OrganisationMedia style={style} inputs={inputs} />,
+      <OrganisationAddress style={style} inputs={inputs} />,
+      <ContactPerson style={style} inputs={inputs} />,
+      <WhatYouNeed style={style} inputs={inputs} />,
       <FinalDetails style={style} inputs={inputs} onSubmit={onSubmit} />
-    )
-  ];
+    ];
+  }
+  const numFormSteps = 7;
 
   return (
     <form style={{ position: "relative" }}>
       {transitions.map(({ item, props, key }) => {
-        const Step = steps[item];
-        return <Step key={key} style={props} />;
+        return <div key={key}>{formSteps(props)[item]}</div>;
       })}
       <MobileStepper
         position="bottom"
         activeStep={currentStep}
-        steps={steps.length}
+        steps={numFormSteps}
         variant="progress"
         nextButton={
           <Button
             aria-label="Previous step"
             size="small"
             onClick={goForward}
-            disabled={currentStep === steps.length - 1}
+            disabled={currentStep === numFormSteps - 1}
           >
             <KeyboardArrowRight />
           </Button>
