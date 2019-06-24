@@ -18,7 +18,7 @@ const FormStep: React.FunctionComponent<Props> = ({
     style={{ ...style, position: "absolute", height: "100%", width: "100%" }}
   >
     <Paper>
-      <div style={{ padding: "30px" }}>
+      <div style={{ padding: "30px", marginBottom: 90 }}>
         <Typography variant="h5" component="h3">
           {heading}
         </Typography>
