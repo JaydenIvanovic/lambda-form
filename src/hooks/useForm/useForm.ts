@@ -34,7 +34,16 @@ function useForm<S extends State>(
         e: ChangeEvent<
           HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
         >
-      ) => setValues({ ...values, [key]: e.target.value })
+      ) => {
+        if (e.target.type === "checkbox") {
+          setValues({
+            ...values,
+            [key]: (e.target as EventTarget & HTMLInputElement).checked
+          });
+        } else {
+          setValues({ ...values, [key]: e.target.value });
+        }
+      }
     };
   });
 
