@@ -25,7 +25,7 @@ export const OrganisationOverview = ({
       </FormLabel>
       <Input required {...inputs.organisationName} />
       {errors.organisationName && (
-        <FormHelperText id={`${inputs.organisationName!.id}-error`}>
+        <FormHelperText id={`${inputs.organisationName!.id}-error`} error>
           {errors.organisationName}
         </FormHelperText>
       )}
@@ -56,7 +56,7 @@ export const OrganisationOverview = ({
         })}
       </Select>
       {errors.sector && (
-        <FormHelperText id={`${inputs.sector!.id}-error`}>
+        <FormHelperText id={`${inputs.sector!.id}-error`} error>
           {errors.sector}
         </FormHelperText>
       )}
@@ -65,7 +65,7 @@ export const OrganisationOverview = ({
       <FormLabel htmlFor={inputs.foundationYear!.id}>Year founded</FormLabel>
       <Input {...inputs.foundationYear} />
       {errors.foundationYear && (
-        <FormHelperText id={`${inputs.foundationYear!.id}-error`}>
+        <FormHelperText id={`${inputs.foundationYear!.id}-error`} error>
           {errors.foundationYear}
         </FormHelperText>
       )}
@@ -77,7 +77,7 @@ export const OrganisationOverview = ({
       </FormLabel>
       <Input required {...inputs.description} />
       {errors.description && (
-        <FormHelperText id={`${inputs.description!.id}-error`}>
+        <FormHelperText id={`${inputs.description!.id}-error`} error>
           {errors.description}
         </FormHelperText>
       )}
