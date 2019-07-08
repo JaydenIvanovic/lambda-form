@@ -91,14 +91,14 @@ function EntryForm({ history }: RouterProps) {
 
     clearErrors();
 
-    // Just get first error in array for now.
-    // This could be made to batch errors in the future
-    // rather than doing multiple renders per error.
-    if (errors) {
-      Object.keys(errors).forEach(key => {
-        setErrors({ ...errors, key: errors[key][0] });
-      });
+    const inputFieldKeys = Object.keys(errors);
+    if (inputFieldKeys.length <= 0) {
+      return true;
     }
+
+    inputFieldKeys.forEach(key => {
+      setErrors({ ...errors, key: errors[key][0] });
+    });
 
     return !errors;
   }

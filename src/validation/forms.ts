@@ -46,17 +46,11 @@ export default class FormValidator {
       ]),
       flagNonNumericFields([inputs.foundationYear])
     );
-    if (Object.keys(errors).length <= 0) {
-      return null;
-    }
     return errors;
   }
 
   static validateOrganisationDetails(inputs: InputPropsObject<EntryType>) {
     const errors = mergeErrors(flagMissingFields([inputs.taxId]));
-    if (Object.keys(errors).length <= 0) {
-      return null;
-    }
     return errors;
   }
 
@@ -69,9 +63,6 @@ export default class FormValidator {
       ]),
       flagNonNumericFields([inputs.socialMediaFollowers])
     );
-    if (Object.keys(errors).length <= 0) {
-      return null;
-    }
     return errors;
   }
 
@@ -86,9 +77,6 @@ export default class FormValidator {
         inputs.country
       ])
     );
-    if (Object.keys(errors).length <= 0) {
-      return null;
-    }
     return errors;
   }
 
@@ -101,9 +89,6 @@ export default class FormValidator {
         inputs.phoneNumber
       ])
     );
-    if (Object.keys(errors).length <= 0) {
-      return null;
-    }
     return errors;
   }
 
@@ -115,17 +100,11 @@ export default class FormValidator {
         inputs.deadline
       ])
     );
-    if (Object.keys(errors).length <= 0) {
-      return null;
-    }
     return errors;
   }
 
   static validateFinalDetails(inputs: InputPropsObject<EntryType>) {
     const errors = mergeErrors(flagMissingFields([inputs.howDidYouHear]));
-    if (Object.keys(errors).length <= 0) {
-      return null;
-    }
     return errors;
   }
 }
