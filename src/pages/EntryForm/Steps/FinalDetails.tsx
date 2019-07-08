@@ -4,7 +4,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormStep from "../FormStep";
 import FormField from "../FormField";
 import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import Checkbox from "@material-ui/core/Checkbox";
 import { InputPropsObject } from "src/hooks/useForm/useForm";
 import ValidationMessage from "../../../components/ValidationMessage";
@@ -35,7 +36,22 @@ export const FinalDetails = ({
       <FormLabel htmlFor={inputs.howDidYouHear!.id}>
         How did you hear about 99designs?
       </FormLabel>
-      <Input {...inputs.howDidYouHear} />
+      <Select {...inputs.howDidYouHear}>
+        {[
+          ["internet", "Internet search"],
+          ["word_of_mouth", "From an acquaintance (word of mouth)"],
+          ["media", "Media coverage"],
+          ["blog", "99designs blog"],
+          ["social_media", "Social media"],
+          ["other", "Other"]
+        ].map(optionPair => {
+          return (
+            <MenuItem key={optionPair[0]} value={optionPair[0]}>
+              {optionPair[1]}
+            </MenuItem>
+          );
+        })}
+      </Select>
       <ValidationMessage
         errorMessage={errors.howDidYouHear}
         fieldId={inputs.howDidYouHear!.id}
