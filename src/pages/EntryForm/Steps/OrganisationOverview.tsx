@@ -7,13 +7,16 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { InputPropsObject } from "src/hooks/useForm/useForm";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 export const OrganisationOverview = ({
   style,
-  inputs
+  inputs,
+  errors
 }: {
   style: any;
   inputs: InputPropsObject<EntryType>;
+  errors: any;
 }) => (
   <FormStep heading="Your organisation" style={style}>
     <FormField variation="column">
@@ -21,23 +24,28 @@ export const OrganisationOverview = ({
         Organisation Name
       </FormLabel>
       <Input required {...inputs.organisationName} />
+      {errors.organisationName && (
+        <FormHelperText id={`${inputs.organisationName!.id}-error`}>
+          {errors.organisationName}
+        </FormHelperText>
+      )}
     </FormField>
     <FormField variation="column">
       <FormLabel htmlFor={inputs.sector!.id}>Sector</FormLabel>
       <Select required {...inputs.sector}>
         {[
-          ["animal-welfare", "Animal welfare"],
-          ["arts-and-culture", "Arts and Culture"],
-          ["civic-services", "Civic services"],
-          ["environmental-advocacy", "Environmental advocacy"],
+          ["animal_welfare", "Animal welfare"],
+          ["arts_and_culture", "Arts and Culture"],
+          ["civic_services", "Civic services"],
+          ["environmental_advocacy", "Environmental advocacy"],
           ["education", "Education"],
           [
-            "international-relations-and-development",
+            "international_relations",
             "International relations and development"
           ],
-          ["health-services", "Health services"],
+          ["health_services", "Health services"],
           ["religion", "Religion"],
-          ["social-and-legal", "Social and legal services"],
+          ["social_and_legal", "Social and legal services"],
           ["other", "Other"]
         ].map(optionPair => {
           return (
@@ -47,10 +55,20 @@ export const OrganisationOverview = ({
           );
         })}
       </Select>
+      {errors.sector && (
+        <FormHelperText id={`${inputs.sector!.id}-error`}>
+          {errors.sector}
+        </FormHelperText>
+      )}
     </FormField>
     <FormField variation="column">
       <FormLabel htmlFor={inputs.foundationYear!.id}>Year founded</FormLabel>
       <Input {...inputs.foundationYear} />
+      {errors.foundationYear && (
+        <FormHelperText id={`${inputs.foundationYear!.id}-error`}>
+          {errors.foundationYear}
+        </FormHelperText>
+      )}
     </FormField>
     <FormField variation="column">
       <FormLabel htmlFor={inputs.description!.id}>
@@ -58,6 +76,11 @@ export const OrganisationOverview = ({
         sentence or two will suffice!)
       </FormLabel>
       <Input required {...inputs.description} />
+      {errors.description && (
+        <FormHelperText id={`${inputs.description!.id}-error`}>
+          {errors.description}
+        </FormHelperText>
+      )}
     </FormField>
   </FormStep>
 );

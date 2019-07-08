@@ -22,8 +22,10 @@ import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
+import FormValidator from "../../validation/forms";
+
 function EntryForm({ history }: RouterProps) {
-  const [values, inputs] = useForm<EntryType>({
+  const [values, errors, inputs, setErrors] = useForm<EntryType>({
     email: "",
     phoneNumber: "",
     website: "",
@@ -70,6 +72,37 @@ function EntryForm({ history }: RouterProps) {
     }
   });
 
+  function clearErrors() {
+    Object.keys(inputs).forEach(key => {
+      setErrors({ ...errors, key: "" });
+    });
+  }
+
+  function validate() {
+    const errors = [
+      FormValidator.validateOrganisationOverview,
+      FormValidator.validateOrganisationDetails,
+      FormValidator.validateOrganisationMedia,
+      FormValidator.validateOrganisationAddress,
+      FormValidator.validateContactPerson,
+      FormValidator.validateWhatYouNeed,
+      FormValidator.validateFinalDetails
+    ][currentStep](inputs);
+
+    clearErrors();
+
+    // Just get first error in array for now.
+    // This could be made to batch errors in the future
+    // rather than doing multiple renders per error.
+    if (errors) {
+      Object.keys(errors).forEach(key => {
+        setErrors({ ...errors, key: errors[key][0] });
+      });
+    }
+
+    return !errors;
+  }
+
   function goForward() {
     setCurrentStep(currentStep + 1);
     setPrevStep(currentStep);
@@ -83,7 +116,10 @@ function EntryForm({ history }: RouterProps) {
   function onSubmit() {
     const id = uuid();
     axios
-      .put(`${API_BASE_URL}/entry/${id}`, { ...values, id })
+      .put(`${API_BASE_URL}/entry/${id}`, {
+        ...values,
+        id
+      })
       .then(() => history.push("/thank-you"))
       .catch(e => {
         window.alert("oh noes there was an error");
@@ -93,7 +129,7 @@ function EntryForm({ history }: RouterProps) {
 
   function formSteps(style: any) {
     return [
-      <OrganisationOverview style={style} inputs={inputs} />,
+      <OrganisationOverview style={style} inputs={inputs} errors={errors} />,
       <OrganisationDetails style={style} inputs={inputs} />,
       <OrganisationMedia style={style} inputs={inputs} />,
       <OrganisationAddress style={style} inputs={inputs} />,
@@ -118,7 +154,7 @@ function EntryForm({ history }: RouterProps) {
           <Button
             aria-label="Previous step"
             size="small"
-            onClick={goForward}
+            onClick={() => validate() && goForward()}
             disabled={currentStep === numFormSteps - 1}
           >
             <KeyboardArrowRight />

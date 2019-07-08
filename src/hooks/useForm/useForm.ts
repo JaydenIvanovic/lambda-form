@@ -15,8 +15,13 @@ interface InputProp {
 
 export type InputPropsObject<S> = { [key in keyof S]?: InputProp };
 
-function useForm<S extends State>(initialValues: S): [S, InputPropsObject<S>] {
+function useForm<S extends State>(
+  initialValues: S
+): [S, any, InputPropsObject<S>, any] {
   const [values, setValues] = useState<S>(initialValues);
+  const [errors, setErrors] = useState<{ [key in keyof S]: string }>(
+    createInitialErrorValues(initialValues)
+  );
 
   const inputs: InputPropsObject<S> = {};
 
@@ -33,7 +38,17 @@ function useForm<S extends State>(initialValues: S): [S, InputPropsObject<S>] {
     };
   });
 
-  return [values, inputs];
+  return [values, errors, inputs, setErrors];
+}
+
+function createInitialErrorValues(initialValues: any) {
+  const initialErrorVals = {
+    ...initialValues
+  };
+  Object.keys(initialValues).forEach(key => {
+    initialErrorVals[key] = "";
+  });
+  return initialErrorVals;
 }
 
 export default useForm;

@@ -65,12 +65,12 @@ type AvailableContestTypes =
 type Localisation = "local" | "national" | "international";
 type Sector =
   | "animal_welfare"
-  | "arts_culture"
+  | "arts_and_culture"
   | "civic_services"
   | "environmental_advocacy"
   | "education"
   | "international_relations"
   | "health_services"
   | "religion"
-  | "social_legal"
+  | "social_and_legal"
   | "other";
