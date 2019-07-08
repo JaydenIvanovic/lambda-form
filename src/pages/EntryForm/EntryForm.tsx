@@ -72,14 +72,36 @@ function EntryForm({ history }: RouterProps) {
     }
   });
 
-  function clearErrors() {
-    Object.keys(inputs).forEach(key => {
-      setErrors({ ...errors, key: "" });
-    });
+  function validate() {
+    clearErrors();
+    const validationErrors = runValidator();
+
+    if (Object.keys(validationErrors).length <= 0) {
+      return true;
+    }
+
+    const validationMessages = Object.keys(validationErrors)
+      .map(key => {
+        return { [key]: validationErrors[key][0] };
+      })
+      .reduce(mergeObjects, {});
+    const newErrorState = { ...errors, ...validationMessages };
+    setErrors(newErrorState);
+
+    return !errors;
   }
 
-  function validate() {
-    const errors = [
+  function clearErrors() {
+    const emptyErrorsState = Object.keys(errors)
+      .map(key => {
+        return { [key]: "" };
+      })
+      .reduce(mergeObjects, {});
+    setErrors(emptyErrorsState);
+  }
+
+  function runValidator() {
+    return [
       FormValidator.validateOrganisationOverview,
       FormValidator.validateOrganisationDetails,
       FormValidator.validateOrganisationMedia,
@@ -88,19 +110,10 @@ function EntryForm({ history }: RouterProps) {
       FormValidator.validateWhatYouNeed,
       FormValidator.validateFinalDetails
     ][currentStep](inputs);
+  }
 
-    clearErrors();
-
-    const inputFieldKeys = Object.keys(errors);
-    if (inputFieldKeys.length <= 0) {
-      return true;
-    }
-
-    inputFieldKeys.forEach(key => {
-      setErrors({ ...errors, key: errors[key][0] });
-    });
-
-    return !errors;
+  function mergeObjects(obj1: any, obj2: any) {
+    return { ...obj1, ...obj2 };
   }
 
   function goForward() {
