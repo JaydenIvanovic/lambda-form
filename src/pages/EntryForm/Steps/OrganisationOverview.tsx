@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { InputPropsObject } from "src/hooks/useForm/useForm";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import ValidationMessage from "../../../components/ValidationMessage";
 
 export const OrganisationOverview = ({
   style,
@@ -24,11 +24,10 @@ export const OrganisationOverview = ({
         Organisation Name
       </FormLabel>
       <Input required {...inputs.organisationName} />
-      {errors.organisationName && (
-        <FormHelperText id={`${inputs.organisationName!.id}-error`} error>
-          {errors.organisationName}
-        </FormHelperText>
-      )}
+      <ValidationMessage
+        errorMessage={errors.organisationName}
+        fieldId={inputs.organisationName!.id}
+      />
     </FormField>
     <FormField variation="column">
       <FormLabel htmlFor={inputs.sector!.id}>Sector</FormLabel>
@@ -55,20 +54,18 @@ export const OrganisationOverview = ({
           );
         })}
       </Select>
-      {errors.sector && (
-        <FormHelperText id={`${inputs.sector!.id}-error`} error>
-          {errors.sector}
-        </FormHelperText>
-      )}
+      <ValidationMessage
+        errorMessage={errors.sector}
+        fieldId={inputs.sector!.id}
+      />
     </FormField>
     <FormField variation="column">
       <FormLabel htmlFor={inputs.foundationYear!.id}>Year founded</FormLabel>
       <Input {...inputs.foundationYear} />
-      {errors.foundationYear && (
-        <FormHelperText id={`${inputs.foundationYear!.id}-error`} error>
-          {errors.foundationYear}
-        </FormHelperText>
-      )}
+      <ValidationMessage
+        errorMessage={errors.foundationYear}
+        fieldId={inputs.foundationYear!.id}
+      />
     </FormField>
     <FormField variation="column">
       <FormLabel htmlFor={inputs.description!.id}>
@@ -76,11 +73,10 @@ export const OrganisationOverview = ({
         sentence or two will suffice!)
       </FormLabel>
       <Input required {...inputs.description} />
-      {errors.description && (
-        <FormHelperText id={`${inputs.description!.id}-error`} error>
-          {errors.description}
-        </FormHelperText>
-      )}
+      <ValidationMessage
+        errorMessage={errors.description}
+        fieldId={inputs.description!.id}
+      />
     </FormField>
   </FormStep>
 );

@@ -130,14 +130,20 @@ function EntryForm({ history }: RouterProps) {
   function formSteps(style: any) {
     return [
       <OrganisationOverview style={style} inputs={inputs} errors={errors} />,
-      <OrganisationDetails style={style} inputs={inputs} />,
-      <OrganisationMedia style={style} inputs={inputs} />,
-      <OrganisationAddress style={style} inputs={inputs} />,
-      <ContactPerson style={style} inputs={inputs} />,
-      <WhatYouNeed style={style} inputs={inputs} />,
-      <FinalDetails style={style} inputs={inputs} onSubmit={onSubmit} />
+      <OrganisationDetails style={style} inputs={inputs} errors={errors} />,
+      <OrganisationMedia style={style} inputs={inputs} errors={errors} />,
+      <OrganisationAddress style={style} inputs={inputs} errors={errors} />,
+      <ContactPerson style={style} inputs={inputs} errors={errors} />,
+      <WhatYouNeed style={style} inputs={inputs} errors={errors} />,
+      <FinalDetails
+        style={style}
+        inputs={inputs}
+        errors={errors}
+        onSubmit={onSubmit}
+      />
     ];
   }
+
   const numFormSteps = 7;
 
   return (

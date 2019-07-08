@@ -7,14 +7,17 @@ import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import { InputPropsObject } from "src/hooks/useForm/useForm";
+import ValidationMessage from "../../../components/ValidationMessage";
 
 export const FinalDetails = ({
   style,
   inputs,
+  errors,
   onSubmit
 }: {
   style: any;
   inputs: InputPropsObject<EntryType>;
+  errors: any;
   onSubmit: () => void;
 }) => (
   <FormStep heading="Final details" style={style}>
@@ -33,6 +36,10 @@ export const FinalDetails = ({
         How did you hear about 99designs?
       </FormLabel>
       <Input {...inputs.howDidYouHear} />
+      <ValidationMessage
+        errorMessage={errors.howDidYouHear}
+        fieldId={inputs.howDidYouHear!.id}
+      />
     </FormField>
     <FormField variation="row">
       <FormLabel htmlFor={inputs.featureAgreement!.id}>

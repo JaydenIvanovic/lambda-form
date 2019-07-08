@@ -8,13 +8,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import { InputPropsObject } from "src/hooks/useForm/useForm";
+import ValidationMessage from "../../../components/ValidationMessage";
 
 export const OrganisationDetails = ({
   style,
-  inputs
+  inputs,
+  errors
 }: {
   style: any;
   inputs: InputPropsObject<EntryType>;
+  errors: any;
 }) => (
   <FormStep heading="Organisation details" style={style}>
     <FormField variation="column">
@@ -22,12 +25,16 @@ export const OrganisationDetails = ({
         Organization's tax or other ID number (for verification purposes only):
       </FormLabel>
       <Input {...inputs.taxId} />
+      <ValidationMessage
+        errorMessage={errors.taxId}
+        fieldId={inputs.taxId!.id}
+      />
     </FormField>
     <FormField variation="column">
       <FormLabel htmlFor={inputs.localisation!.id}>Localisation</FormLabel>
       <Select {...inputs.localisation}>
         {[
-          ["local-or-regional", "Local/Regional"],
+          ["local", "Local/Regional"],
           ["national", "National"],
           ["international", "International"]
         ].map(optionPair => {

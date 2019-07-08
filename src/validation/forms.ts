@@ -52,33 +52,80 @@ export default class FormValidator {
     return errors;
   }
 
-  static validateOrganisationDetails(
-    inputs: InputPropsObject<EntryType>
-  ): boolean {
-    return true;
+  static validateOrganisationDetails(inputs: InputPropsObject<EntryType>) {
+    const errors = mergeErrors(flagMissingFields([inputs.taxId]));
+    if (Object.keys(errors).length <= 0) {
+      return null;
+    }
+    return errors;
   }
 
-  static validateOrganisationMedia(
-    inputs: InputPropsObject<EntryType>
-  ): boolean {
-    return true;
+  static validateOrganisationMedia(inputs: InputPropsObject<EntryType>) {
+    const errors = mergeErrors(
+      flagMissingFields([
+        inputs.website,
+        inputs.socialMediaHandle,
+        inputs.socialMediaFollowers
+      ]),
+      flagNonNumericFields([inputs.socialMediaFollowers])
+    );
+    if (Object.keys(errors).length <= 0) {
+      return null;
+    }
+    return errors;
   }
 
-  static validateOrganisationAddress(
-    inputs: InputPropsObject<EntryType>
-  ): boolean {
-    return true;
+  static validateOrganisationAddress(inputs: InputPropsObject<EntryType>) {
+    const errors = mergeErrors(
+      flagMissingFields([
+        inputs.streetAddress,
+        inputs.streetAddressTwo,
+        inputs.city,
+        inputs.province,
+        inputs.zip,
+        inputs.country
+      ])
+    );
+    if (Object.keys(errors).length <= 0) {
+      return null;
+    }
+    return errors;
   }
 
-  static validateContactPerson(inputs: InputPropsObject<EntryType>): boolean {
-    return true;
+  static validateContactPerson(inputs: InputPropsObject<EntryType>) {
+    const errors = mergeErrors(
+      flagMissingFields([
+        inputs.applicantName,
+        inputs.role,
+        inputs.email,
+        inputs.phoneNumber
+      ])
+    );
+    if (Object.keys(errors).length <= 0) {
+      return null;
+    }
+    return errors;
   }
 
-  static validateWhatYouNeed(inputs: InputPropsObject<EntryType>): boolean {
-    return true;
+  static validateWhatYouNeed(inputs: InputPropsObject<EntryType>) {
+    const errors = mergeErrors(
+      flagMissingFields([
+        inputs.contestType,
+        inputs.specificEvent,
+        inputs.deadline
+      ])
+    );
+    if (Object.keys(errors).length <= 0) {
+      return null;
+    }
+    return errors;
   }
 
-  static validateFinalDetails(inputs: InputPropsObject<EntryType>): boolean {
-    return true;
+  static validateFinalDetails(inputs: InputPropsObject<EntryType>) {
+    const errors = mergeErrors(flagMissingFields([inputs.howDidYouHear]));
+    if (Object.keys(errors).length <= 0) {
+      return null;
+    }
+    return errors;
   }
 }
