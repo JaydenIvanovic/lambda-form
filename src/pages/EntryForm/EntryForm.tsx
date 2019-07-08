@@ -74,6 +74,7 @@ function EntryForm({ history }: RouterProps) {
 
   function validate() {
     clearErrors();
+
     const validationErrors = runValidator();
 
     if (Object.keys(validationErrors).length <= 0) {
@@ -85,19 +86,22 @@ function EntryForm({ history }: RouterProps) {
         return { [key]: validationErrors[key][0] };
       })
       .reduce(mergeObjects, {});
-    const newErrorState = { ...errors, ...validationMessages };
+    const newErrorState = { ...getEmptyErrorState(), ...validationMessages };
     setErrors(newErrorState);
 
     return !errors;
   }
 
   function clearErrors() {
-    const emptyErrorsState = Object.keys(errors)
+    setErrors(getEmptyErrorState());
+  }
+
+  function getEmptyErrorState() {
+    return Object.keys(errors)
       .map(key => {
         return { [key]: "" };
       })
       .reduce(mergeObjects, {});
-    setErrors(emptyErrorsState);
   }
 
   function runValidator() {
